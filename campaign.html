@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KANUGA'S GUILD CAMPAIGN 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="permissions.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: black;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            color: green;
+            margin: 0;
+            text-align: center;
+        }
+
+        h2, h3 {
+            color: green;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-size: 1.2em;
+            color: #2e7d32;
+        }
+
+        .logout-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff1744;
+        }
+
+        .nav {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            margin-right: 15px;
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: white;
+            background-color: green;
+        }
+
+        .banner img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-box i {
+            font-size: 2em;
+            color: green;
+            margin-bottom: 10px;
+        }
+
+        .stat-box h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .stat-box p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: green;
+            margin: 0;
+        }
+
+        .quick-actions {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .charts-container {
+            margin-top: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .charts-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-wrapper {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-wrapper h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2e7d32;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            background-color: #e8f5e9;
+            border: 2px solid green;
+            color: green;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: green;
+            color: white;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: green;
+            color: white;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                text-align: center;
+            }
+
+            .nav a {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .banner img {
+                height: 200px;
+            }
+        }
+    </style>
+    <script>
+        function checkLogin() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                window.location.href = "login.html";
+            }
+            return loggedInUser;
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>KANUGA'S GUILD CAMPAIGN 2026</h1>
+    </div>
+
+    <div class="welcome-section">
+        <div class="welcome-text">Welcome, <span id="userName">User</span>!</div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="banner">
+        <img src="https://i.imgur.com/hK6DWOz.png" alt="Campaign Banner">
+    </div>
+
+    <div class="nav">
+        <a href="campaign.html"><i class="fas fa-home"></i> Home</a>
+        <a href="supporters.html"><i class="fas fa-users"></i> Supporters</a>
+        <a href="team-members.html"><i class="fas fa-user-tie"></i> Team Members</a>
+        <a href="attendance.html"><i class="fas fa-calendar-check"></i> Attendance</a>
+        <a href="finance.html"><i class="fas fa-money-bill-wave"></i> Campaign Finance</a>
+        <a href="data-entry.html"><i class="fas fa-database"></i> Data Entry</a>
+    </div>
+
+    <div class="main-content">
+        <div class="stats-container">
+            <div class="stat-box">
+                <i class="fas fa-users"></i>
+                <h3>Supporters</h3>
+                <p id="supporterCount">0</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-user-tie"></i>
+                <h3>Team Members</h3>
+                <p id="teamCount">0</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-male"></i>
+                <h3>Male Supporters</h3>
+                <p id="maleCount">0</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-female"></i>
+                <h3>Female Supporters</h3>
+                <p id="femaleCount">0</p>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Team Attendance</h3>
+                <p id="attendancePercentage">0%</p>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+                <button class="action-btn" onclick="window.location.href='data-entry.html'">
+                    <i class="fas fa-plus"></i> Add New Entry
+                </button>
+                <button class="action-btn" onclick="window.location.href='attendance.html'">
+                    <i class="fas fa-clipboard-list"></i> Record Attendance
+                </button>
+                <button class="action-btn" onclick="window.location.href='supporters.html'">
+                    <i class="fas fa-user-plus"></i> Add Supporter
+                </button>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <h2>Support Distribution Analysis</h2>
+            <div class="charts-grid">
+                <div class="chart-wrapper">
+                    <h3>By Faculty</h3>
+                    <canvas id="facultyChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>By Gender</h3>
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = checkLogin();
+            if (loggedInUser) {
+                document.getElementById("userName").textContent = loggedInUser.name || "User";
+            }
+
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            let supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
+            let attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || [];
+
+            document.getElementById("teamCount").textContent = teamData.length;
+            document.getElementById("supporterCount").textContent = supporterData.length;
+
+            let maleCount = supporterData.filter(supporter => supporter.gender === "Male").length;
+            let femaleCount = supporterData.filter(supporter => supporter.gender === "Female").length;
+            document.getElementById("maleCount").textContent = maleCount;
+            document.getElementById("femaleCount").textContent = femaleCount;
+
+            if (teamData.length > 0 && attendanceData.length > 0) {
+                let attendedCount = attendanceData.filter(attendance => attendance.attended).length;
+                let attendancePercentage = (attendedCount / teamData.length) * 100;
+                document.getElementById("attendancePercentage").textContent = attendancePercentage.toFixed(2) + "%";
+            } else {
+                document.getElementById("attendancePercentage").textContent = "N/A";
+            }
+
+            // Create faculty distribution chart
+            const facultyCounts = {};
+            supporterData.forEach(supporter => {
+                if (supporter.faculty) {
+                    facultyCounts[supporter.faculty] = (facultyCounts[supporter.faculty] || 0) + 1;
+                }
+            });
+
+            const ctx = document.getElementById('facultyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(facultyCounts),
+                    datasets: [{
+                        data: Object.values(facultyCounts),
+                        backgroundColor: [
+                            '#4CAF50', // Green
+                            '#2196F3', // Blue
+                            '#FFC107', // Yellow
+                            '#9C27B0', // Purple
+                            '#FF5722', // Deep Orange
+                            '#00BCD4', // Cyan
+                            '#795548', // Brown
+                            '#607D8B', // Blue Grey
+                            '#E91E63', // Pink
+                            '#3F51B5', // Indigo
+                            '#FF9800', // Orange
+                            '#009688'  // Teal
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Create gender distribution chart
+            const genderCounts = {
+                'Male': supporterData.filter(s => s.gender === 'Male').length,
+                'Female': supporterData.filter(s => s.gender === 'Female').length,
+                'Other': supporterData.filter(s => s.gender === 'Other').length
+            };
+
+            const genderCtx = document.getElementById('genderChart').getContext('2d');
+            new Chart(genderCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(genderCounts),
+                    datasets: [{
+                        label: 'Number of Supporters',
+                        data: Object.values(genderCounts),
+                        backgroundColor: [
+                            '#2196F3', // Blue for Male
+                            '#E91E63', // Pink for Female
+                            '#9C27B0'  // Purple for Other
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <footer>
+        <p>Contact us: kanugasupport@gmail.com | Follow us on <a href="#"><i class="fab fa-facebook"></i> Facebook</a> | <a href="#"><i class="fab fa-twitter"></i> Twitter</a></p>
+    </footer>
+</body>
+
+</html>

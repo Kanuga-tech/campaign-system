@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members - KANUGA'S GUILD CAMPAIGN 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="permissions.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            color: green;
+            margin: 0;
+            text-align: center;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-size: 1.2em;
+            color: #2e7d32;
+        }
+
+        .logout-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff1744;
+        }
+
+        .nav {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            margin-right: 15px;
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: white;
+            background-color: green;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        #searchInput {
+            padding: 8px 8px 8px 35px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .add-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .add-btn:hover {
+            background-color: #2e7d32;
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        th:hover {
+            background-color: #2e7d32;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #2196F3;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .edit-btn:hover {
+            background-color: #1976D2;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                text-align: center;
+            }
+
+            .nav a {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <script>
+        function checkLogin() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                window.location.href = "login.html";
+            }
+            return loggedInUser;
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+
+        function deleteTeamMember(index) {
+            if (confirm('Are you sure you want to delete this team member?')) {
+                let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+                teamData.splice(index, 1);
+                localStorage.setItem("teamData", JSON.stringify(teamData));
+                displayTeamMembers(teamData);
+            }
+        }
+
+        function editTeamMember(index) {
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            localStorage.setItem("editingTeamMember", JSON.stringify(teamData[index]));
+            window.location.href = "data-entry.html?edit=true";
+        }
+
+        function sortTable(column) {
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            teamData.sort((a, b) => {
+                if (a[column] < b[column]) return -1;
+                if (a[column] > b[column]) return 1;
+                return 0;
+            });
+            localStorage.setItem("teamData", JSON.stringify(teamData));
+            displayTeamMembers(teamData);
+        }
+
+        function displayTeamMembers(members) {
+            let table = document.getElementById("teamTable");
+            table.innerHTML = "";
+
+            members.forEach((member, index) => {
+                let row = table.insertRow();
+                row.innerHTML = `
+                    <td>${member.name || 'N/A'}</td>
+                    <td>${member.program || 'N/A'}</td>
+                    <td>${member.faculty || 'N/A'}</td>
+                    <td>${member.phone || 'N/A'}</td>
+                    <td>${member.hostel || 'N/A'}</td>
+                    <td>${member.classRole || 'N/A'}</td>
+                    <td>${member.teamRole || 'N/A'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="edit-btn" onclick="editTeamMember(${index})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="delete-btn" onclick="deleteTeamMember(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Team Members - KANUGA'S GUILD CAMPAIGN 2026</h1>
+    </div>
+
+    <div class="welcome-section">
+        <div class="welcome-text">Welcome, <span id="userName">User</span>!</div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="nav">
+        <a href="campaign.html"><i class="fas fa-home"></i> Home</a>
+        <a href="supporters.html"><i class="fas fa-users"></i> Supporters</a>
+        <a href="team-members.html"><i class="fas fa-user-tie"></i> Team Members</a>
+        <a href="attendance.html"><i class="fas fa-calendar-check"></i> Attendance</a>
+        <a href="finance.html"><i class="fas fa-money-bill-wave"></i> Campaign Finance</a>
+        <a href="data-entry.html"><i class="fas fa-database"></i> Data Entry</a>
+    </div>
+
+    <div class="main-content">
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search team members...">
+            </div>
+            <button class="add-btn" onclick="window.location.href='data-entry.html'">
+                <i class="fas fa-plus"></i> Add New Team Member
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('name')">Name <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('program')">Program <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('faculty')">Faculty <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('phone')">Phone <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('hostel')">Hostel <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('classRole')">Role in Class <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('teamRole')">Role on Team <i class="fas fa-sort"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="teamTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = checkLogin();
+            if (loggedInUser) {
+                document.getElementById("userName").textContent = loggedInUser.name || "User";
+            }
+
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            displayTeamMembers(teamData);
+
+            document.getElementById("searchInput").addEventListener("input", function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredMembers = teamData.filter(member => {
+                    return Object.values(member).some(value => {
+                        if (typeof value === 'string') {
+                            return value.toLowerCase().includes(searchTerm);
+                        }
+                        return false;
+                    });
+                });
+                displayTeamMembers(filteredMembers);
+            });
+        });
+    </script>
+</body>
+
+</html>

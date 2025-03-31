@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Attendance - KANUGA'S GUILD CAMPAIGN 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            color: green;
+            margin: 0;
+            text-align: center;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-size: 1.2em;
+            color: #2e7d32;
+        }
+
+        .logout-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff1744;
+        }
+
+        .nav {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            margin-right: 15px;
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: white;
+            background-color: green;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        #searchInput {
+            padding: 8px 8px 8px 35px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tabs-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: green;
+            color: white;
+        }
+
+        .tab:hover {
+            background-color: #e9ecef;
+        }
+
+        .tab.active:hover {
+            background-color: #2e7d32;
+        }
+
+        .form-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .new-form-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .new-form-btn:hover {
+            background-color: #218838;
+        }
+
+        .form-select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            min-width: 200px;
+        }
+
+        .form-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .form-date {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-form-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .delete-form-btn:hover {
+            background-color: #c82333;
+        }
+
+        .attendance-table-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            padding: 20px;
+        }
+
+        #attendanceTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #attendanceTable th,
+        #attendanceTable td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #attendanceTable th {
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        #attendanceTable th:hover {
+            background-color: #2e7d32;
+        }
+
+        #attendanceTable td {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #attendanceTable td.present {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        #attendanceTable td.absent {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        #attendanceTable td.late {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cell {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status-cell:hover {
+            opacity: 0.8;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quick-action-btn:hover {
+            background-color: #218838;
+        }
+
+        .quick-action-btn.mark-all-present {
+            background-color: #28a745;
+        }
+
+        .quick-action-btn.mark-all-absent {
+            background-color: #dc3545;
+        }
+
+        .quick-action-btn.mark-all-late {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .quick-action-btn.mark-all-present:hover {
+            background-color: #218838;
+        }
+
+        .quick-action-btn.mark-all-absent:hover {
+            background-color: #c82333;
+        }
+
+        .quick-action-btn.mark-all-late:hover {
+            background-color: #e0a800;
+        }
+
+        .activity-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .activity-date {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .save-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .save-btn:hover {
+            background-color: #2e7d32;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                text-align: center;
+            }
+
+            .nav a {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Team Attendance - KANUGA'S GUILD CAMPAIGN 2026</h1>
+    </div>
+
+    <div class="welcome-section">
+        <div class="welcome-text">Welcome, <span id="userName">User</span>!</div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="nav">
+        <a href="campaign.html"><i class="fas fa-home"></i> Home</a>
+        <a href="supporters.html"><i class="fas fa-users"></i> Supporters</a>
+        <a href="team-members.html"><i class="fas fa-user-tie"></i> Team Members</a>
+        <a href="attendance.html"><i class="fas fa-calendar-check"></i> Attendance</a>
+        <a href="finance.html"><i class="fas fa-money-bill-wave"></i> Campaign Finance</a>
+        <a href="data-entry.html"><i class="fas fa-database"></i> Data Entry</a>
+    </div>
+
+    <div class="main-content">
+        <div class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search team members...">
+            </div>
+            <button class="save-btn" onclick="saveAttendance()">
+                <i class="fas fa-save"></i> Save Attendance
+            </button>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Activities</h3>
+                <div class="value" id="totalActivities">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Attendance</h3>
+                <div class="value" id="avgAttendance">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Most Active Member</h3>
+                <div class="value" id="mostActive">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>Least Active Member</h3>
+                <div class="value" id="leastActive">-</div>
+            </div>
+        </div>
+
+        <div class="activity-info">
+            <div class="activity-date">
+                <i class="fas fa-calendar"></i> Last Updated: <span id="lastUpdated">Never</span>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('meetings')">Meetings</button>
+                <button class="tab" onclick="switchTab('green-wednesdays')">Green Wednesdays</button>
+                <button class="tab" onclick="switchTab('events')">Events</button>
+                <button class="tab" onclick="switchTab('rallies')">Rallies</button>
+            </div>
+
+            <div id="meetings-tab" class="tab-content">
+                <div class="form-controls">
+                    <select class="form-select" id="meetingFormSelect" onchange="loadMeetingForm()">
+                        <option value="">Select Meeting Form</option>
+                    </select>
+                    <button class="new-form-btn" onclick="createNewMeetingForm()">
+                        <i class="fas fa-plus"></i> New Meeting Form
+                    </button>
+                </div>
+                <div class="form-info">
+                    <div class="form-date">
+                        <i class="fas fa-calendar"></i> Meeting Date: <span id="meetingDate">-</span>
+                    </div>
+                    <div class="form-actions">
+                        <button class="delete-form-btn" onclick="deleteMeetingForm()">
+                            <i class="fas fa-trash"></i> Delete Form
+                        </button>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn mark-all-present" onclick="markAllAttendance('present')">
+                        <i class="fas fa-check-circle"></i> Mark All Present
+                    </button>
+                    <button class="quick-action-btn mark-all-late" onclick="markAllAttendance('late')">
+                        <i class="fas fa-clock"></i> Mark All Late
+                    </button>
+                    <button class="quick-action-btn mark-all-absent" onclick="markAllAttendance('absent')">
+                        <i class="fas fa-times-circle"></i> Mark All Absent
+                    </button>
+                </div>
+                <div class="attendance-table-container">
+                    <table id="meetingsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Faculty</th>
+                                <th>Team Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="green-wednesdays-tab" class="tab-content" style="display: none;">
+                <div class="form-controls">
+                    <select class="form-select" id="greenWednesdayFormSelect" onchange="loadGreenWednesdayForm()">
+                        <option value="">Select Green Wednesday Form</option>
+                    </select>
+                    <button class="new-form-btn" onclick="createNewGreenWednesdayForm()">
+                        <i class="fas fa-plus"></i> New Green Wednesday Form
+                    </button>
+                </div>
+                <div class="form-info">
+                    <div class="form-date">
+                        <i class="fas fa-calendar"></i> Green Wednesday Date: <span id="greenWednesdayDate">-</span>
+                    </div>
+                    <div class="form-actions">
+                        <button class="delete-form-btn" onclick="deleteGreenWednesdayForm()">
+                            <i class="fas fa-trash"></i> Delete Form
+                        </button>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn mark-all-present" onclick="markAllAttendance('present')">
+                        <i class="fas fa-check-circle"></i> Mark All Present
+                    </button>
+                    <button class="quick-action-btn mark-all-late" onclick="markAllAttendance('late')">
+                        <i class="fas fa-clock"></i> Mark All Late
+                    </button>
+                    <button class="quick-action-btn mark-all-absent" onclick="markAllAttendance('absent')">
+                        <i class="fas fa-times-circle"></i> Mark All Absent
+                    </button>
+                </div>
+                <div class="attendance-table-container">
+                    <table id="greenWednesdaysTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Faculty</th>
+                                <th>Team Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="events-tab" class="tab-content" style="display: none;">
+                <div class="form-controls">
+                    <select class="form-select" id="eventFormSelect" onchange="loadEventForm()">
+                        <option value="">Select Event Form</option>
+                    </select>
+                    <button class="new-form-btn" onclick="createNewEventForm()">
+                        <i class="fas fa-plus"></i> New Event Form
+                    </button>
+                </div>
+                <div class="form-info">
+                    <div class="form-date">
+                        <i class="fas fa-calendar"></i> Event Date: <span id="eventDate">-</span>
+                    </div>
+                    <div class="form-actions">
+                        <button class="delete-form-btn" onclick="deleteEventForm()">
+                            <i class="fas fa-trash"></i> Delete Form
+                        </button>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn mark-all-present" onclick="markAllAttendance('present')">
+                        <i class="fas fa-check-circle"></i> Mark All Present
+                    </button>
+                    <button class="quick-action-btn mark-all-late" onclick="markAllAttendance('late')">
+                        <i class="fas fa-clock"></i> Mark All Late
+                    </button>
+                    <button class="quick-action-btn mark-all-absent" onclick="markAllAttendance('absent')">
+                        <i class="fas fa-times-circle"></i> Mark All Absent
+                    </button>
+                </div>
+                <div class="attendance-table-container">
+                    <table id="eventsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Faculty</th>
+                                <th>Team Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="rallies-tab" class="tab-content" style="display: none;">
+                <div class="form-controls">
+                    <select class="form-select" id="rallyFormSelect" onchange="loadRallyForm()">
+                        <option value="">Select Rally Form</option>
+                        <option value="nomination">Nomination Rally</option>
+                        <option value="debate">Debate Rally</option>
+                        <option value="final">Final Rally</option>
+                    </select>
+                </div>
+                <div class="form-info">
+                    <div class="form-date">
+                        <i class="fas fa-calendar"></i> Rally Date: <span id="rallyDate">-</span>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn mark-all-present" onclick="markAllAttendance('present')">
+                        <i class="fas fa-check-circle"></i> Mark All Present
+                    </button>
+                    <button class="quick-action-btn mark-all-late" onclick="markAllAttendance('late')">
+                        <i class="fas fa-clock"></i> Mark All Late
+                    </button>
+                    <button class="quick-action-btn mark-all-absent" onclick="markAllAttendance('absent')">
+                        <i class="fas fa-times-circle"></i> Mark All Absent
+                    </button>
+                </div>
+                <div class="attendance-table-container">
+                    <table id="ralliesTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Faculty</th>
+                                <th>Team Role</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                window.location.href = "login.html";
+            }
+            return loggedInUser;
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+
+        let attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || {
+            meetings: {},
+            greenWednesdays: {},
+            events: {},
+            rallies: {}
+        };
+
+        let teamMembers = JSON.parse(localStorage.getItem("teamData")) || [];
+
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            
+            // Add active class to selected tab
+            event.target.classList.add('active');
+            
+            // Load appropriate data
+            loadTabData(tabName);
+        }
+
+        function loadTabData(tabName) {
+            switch(tabName) {
+                case 'meetings':
+                    loadMeetingForms();
+                    break;
+                case 'green-wednesdays':
+                    loadGreenWednesdayForms();
+                    break;
+                case 'events':
+                    loadEventForms();
+                    break;
+                case 'rallies':
+                    loadRallyForms();
+                    break;
+            }
+        }
+
+        function createNewMeetingForm() {
+            const date = prompt('Enter meeting date (YYYY-MM-DD):');
+            if (!date) return;
+
+            const formId = `meeting_${Date.now()}`;
+            if (!attendanceData.meetings[formId]) {
+                attendanceData.meetings[formId] = {
+                    date: date,
+                    attendance: {}
+                };
+                saveAttendance();
+                loadMeetingForms();
+                
+                // Select the newly created form
+                const select = document.getElementById('meetingFormSelect');
+                select.value = formId;
+                loadMeetingForm();
+            }
+        }
+
+        function createNewGreenWednesdayForm() {
+            const date = prompt('Enter Green Wednesday date (YYYY-MM-DD):');
+            if (!date) return;
+
+            const formId = `green_wednesday_${Date.now()}`;
+            if (!attendanceData.greenWednesdays[formId]) {
+                attendanceData.greenWednesdays[formId] = {
+                    date: date,
+                    attendance: {}
+                };
+                saveAttendance();
+                loadGreenWednesdayForms();
+                
+                // Select the newly created form
+                const select = document.getElementById('greenWednesdayFormSelect');
+                select.value = formId;
+                loadGreenWednesdayForm();
+            }
+        }
+
+        function createNewEventForm() {
+            const date = prompt('Enter event date (YYYY-MM-DD):');
+            if (!date) return;
+
+            const formId = `event_${Date.now()}`;
+            if (!attendanceData.events[formId]) {
+                attendanceData.events[formId] = {
+                    date: date,
+                    attendance: {}
+                };
+                saveAttendance();
+                loadEventForms();
+                
+                // Select the newly created form
+                const select = document.getElementById('eventFormSelect');
+                select.value = formId;
+                loadEventForm();
+            }
+        }
+
+        function loadMeetingForms() {
+            const select = document.getElementById('meetingFormSelect');
+            select.innerHTML = '<option value="">Select Meeting Form</option>';
+            
+            if (attendanceData.meetings) {
+                Object.entries(attendanceData.meetings).forEach(([id, data]) => {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = data.date;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function loadGreenWednesdayForms() {
+            const select = document.getElementById('greenWednesdayFormSelect');
+            select.innerHTML = '<option value="">Select Green Wednesday Form</option>';
+            
+            if (attendanceData.greenWednesdays) {
+                Object.entries(attendanceData.greenWednesdays).forEach(([id, data]) => {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = data.date;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function loadEventForms() {
+            const select = document.getElementById('eventFormSelect');
+            select.innerHTML = '<option value="">Select Event Form</option>';
+            
+            if (attendanceData.events) {
+                Object.entries(attendanceData.events).forEach(([id, data]) => {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = data.date;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function loadRallyForms() {
+            const select = document.getElementById('rallyFormSelect');
+            select.innerHTML = '<option value="">Select Rally Form</option>';
+            select.innerHTML += `
+                <option value="nomination">Nomination Rally</option>
+                <option value="debate">Debate Rally</option>
+                <option value="final">Final Rally</option>
+            `;
+        }
+
+        function loadMeetingForm() {
+            const formId = document.getElementById('meetingFormSelect').value;
+            if (!formId) return;
+
+            const formData = attendanceData.meetings[formId];
+            if (formData) {
+                document.getElementById('meetingDate').textContent = formData.date;
+                console.log('Loading meeting form:', formId); // Debug log
+                console.log('Form data:', formData); // Debug log
+                renderAttendanceTable('meetingsTable', formData.attendance || {});
+            }
+        }
+
+        function loadGreenWednesdayForm() {
+            const formId = document.getElementById('greenWednesdayFormSelect').value;
+            if (!formId) return;
+
+            const formData = attendanceData.greenWednesdays[formId];
+            if (formData) {
+                document.getElementById('greenWednesdayDate').textContent = formData.date;
+                renderAttendanceTable('greenWednesdaysTable', formData.attendance || {});
+            }
+        }
+
+        function loadEventForm() {
+            const formId = document.getElementById('eventFormSelect').value;
+            if (!formId) return;
+
+            const formData = attendanceData.events[formId];
+            if (formData) {
+                document.getElementById('eventDate').textContent = formData.date;
+                renderAttendanceTable('eventsTable', formData.attendance || {});
+            }
+        }
+
+        function loadRallyForm() {
+            const rallyType = document.getElementById('rallyFormSelect').value;
+            if (!rallyType) return;
+
+            if (!attendanceData.rallies) {
+                attendanceData.rallies = {};
+            }
+
+            const formData = attendanceData.rallies[rallyType] || {
+                date: new Date().toISOString().split('T')[0],
+                attendance: {}
+            };
+            document.getElementById('rallyDate').textContent = formData.date;
+            renderAttendanceTable('ralliesTable', formData.attendance || {});
+        }
+
+        function renderAttendanceTable(tableId, attendanceData) {
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            tbody.innerHTML = "";
+
+            console.log('Rendering table for:', tableId); // Debug log
+            console.log('Team Members to render:', teamMembers); // Debug log
+
+            if (!teamMembers || teamMembers.length === 0) {
+                console.log('No team members found!'); // Debug log
+                return;
+            }
+
+            teamMembers.forEach(member => {
+                const row = document.createElement("tr");
+                row.dataset.memberId = member.id;
+                const status = attendanceData[member.id] || '';
+                
+                row.innerHTML = `
+                    <td>${member.name || 'N/A'}</td>
+                    <td>${member.faculty || 'N/A'}</td>
+                    <td>${member.teamRole || 'N/A'}</td>
+                    <td class="${status.toLowerCase()} status-cell">${status || 'Not Marked'}</td>
+                `;
+
+                const statusCell = row.querySelector('td:last-child');
+                statusCell.addEventListener('click', () => toggleAttendance(member.id, statusCell));
+                tbody.appendChild(row);
+            });
+        }
+
+        function markAllAttendance(status) {
+            const activeTab = document.querySelector('.tab.active').textContent.toLowerCase();
+            const formId = getCurrentFormId();
+            
+            if (!formId) return;
+
+            const tableId = `${activeTab.replace(' ', '-')}Table`;
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            
+            tbody.querySelectorAll('tr').forEach(row => {
+                const statusCell = row.querySelector('td:last-child');
+                const memberId = row.dataset.memberId;
+                
+                statusCell.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+                statusCell.className = `${status} status-cell`;
+                
+                if (!attendanceData[activeTab][formId]) {
+                    attendanceData[activeTab][formId] = { date: new Date().toISOString().split('T')[0], attendance: {} };
+                }
+                attendanceData[activeTab][formId].attendance[memberId] = status.charAt(0).toUpperCase() + status.slice(1);
+            });
+            
+            saveAttendance();
+        }
+
+        function toggleAttendance(memberId, cell) {
+            const currentStatus = cell.textContent;
+            let newStatus = '';
+
+            if (currentStatus === 'Present') {
+                newStatus = 'Late';
+                cell.classList.remove('present');
+                cell.classList.add('late');
+            } else if (currentStatus === 'Late') {
+                newStatus = 'Absent';
+                cell.classList.remove('late');
+                cell.classList.add('absent');
+            } else if (currentStatus === 'Absent') {
+                newStatus = '';
+                cell.classList.remove('absent');
+            } else {
+                newStatus = 'Present';
+                cell.classList.add('present');
+            }
+
+            cell.textContent = newStatus || 'Not Marked';
+            
+            // Update attendance data based on current tab
+            const activeTab = document.querySelector('.tab.active').textContent.toLowerCase();
+            const formId = getCurrentFormId();
+            
+            if (formId) {
+                if (!attendanceData[activeTab][formId]) {
+                    attendanceData[activeTab][formId] = { date: new Date().toISOString().split('T')[0], attendance: {} };
+                }
+                attendanceData[activeTab][formId].attendance[memberId] = newStatus;
+                saveAttendance();
+            }
+        }
+
+        function getCurrentFormId() {
+            const activeTab = document.querySelector('.tab.active').textContent.toLowerCase();
+            switch(activeTab) {
+                case 'meetings':
+                    return document.getElementById('meetingFormSelect').value;
+                case 'green wednesdays':
+                    return document.getElementById('greenWednesdayFormSelect').value;
+                case 'events':
+                    return document.getElementById('eventFormSelect').value;
+                case 'rallies':
+                    return document.getElementById('rallyFormSelect').value;
+            }
+        }
+
+        function deleteMeetingForm() {
+            const formId = document.getElementById('meetingFormSelect').value;
+            if (!formId) return;
+            
+            if (confirm('Are you sure you want to delete this meeting form?')) {
+                delete attendanceData.meetings[formId];
+                saveAttendance();
+                loadMeetingForms();
+                document.getElementById('meetingDate').textContent = '-';
+                document.querySelector('#meetingsTable tbody').innerHTML = '';
+            }
+        }
+
+        function deleteGreenWednesdayForm() {
+            const formId = document.getElementById('greenWednesdayFormSelect').value;
+            if (!formId) return;
+            
+            if (confirm('Are you sure you want to delete this Green Wednesday form?')) {
+                delete attendanceData.greenWednesdays[formId];
+                saveAttendance();
+                loadGreenWednesdayForms();
+                document.getElementById('greenWednesdayDate').textContent = '-';
+                document.querySelector('#greenWednesdaysTable tbody').innerHTML = '';
+            }
+        }
+
+        function deleteEventForm() {
+            const formId = document.getElementById('eventFormSelect').value;
+            if (!formId) return;
+            
+            if (confirm('Are you sure you want to delete this event form?')) {
+                delete attendanceData.events[formId];
+                saveAttendance();
+                loadEventForms();
+                document.getElementById('eventDate').textContent = '-';
+                document.querySelector('#eventsTable tbody').innerHTML = '';
+            }
+        }
+
+        function saveAttendance() {
+            try {
+                // Ensure attendanceData structure is complete
+                attendanceData = {
+                    meetings: attendanceData.meetings || {},
+                    greenWednesdays: attendanceData.greenWednesdays || {},
+                    events: attendanceData.events || {},
+                    rallies: attendanceData.rallies || {}
+                };
+
+                // Save to localStorage
+                localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
+                
+                // Update last updated timestamp
+                document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+                
+                // Update statistics
+                updateStatistics();
+                
+                console.log('Attendance data saved successfully:', attendanceData);
+            } catch (error) {
+                console.error('Error saving attendance data:', error);
+                alert('Error saving attendance data. Please try again.');
+            }
+        }
+
+        function updateStatistics() {
+            try {
+                let totalActivities = 0;
+                let totalAttendance = 0;
+                let memberAttendance = {};
+
+                // Count activities and attendance for each type
+                ['meetings', 'greenWednesdays', 'events', 'rallies'].forEach(type => {
+                    if (attendanceData[type]) {
+                        Object.values(attendanceData[type]).forEach(form => {
+                            if (form.attendance) {
+                                totalActivities++;
+                                Object.values(form.attendance).forEach(status => {
+                                    if (status === 'Present' || status === 'Late') {
+                                        totalAttendance++;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+                // Calculate average attendance
+                const avgAttendance = totalActivities > 0 
+                    ? Math.round((totalAttendance / (totalActivities * teamMembers.length)) * 100) 
+                    : 0;
+
+                // Update statistics display
+                document.getElementById('totalActivities').textContent = totalActivities;
+                document.getElementById('avgAttendance').textContent = `${avgAttendance}%`;
+
+                // Calculate most and least active members
+                teamMembers.forEach(member => {
+                    let memberTotal = 0;
+                    let memberActivities = 0;
+
+                    ['meetings', 'greenWednesdays', 'events', 'rallies'].forEach(type => {
+                        if (attendanceData[type]) {
+                            Object.values(attendanceData[type]).forEach(form => {
+                                if (form.attendance && form.attendance[member.id]) {
+                                    memberActivities++;
+                                    if (form.attendance[member.id] === 'Present' || form.attendance[member.id] === 'Late') {
+                                        memberTotal++;
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                    memberAttendance[member.name] = memberActivities > 0 
+                        ? Math.round((memberTotal / memberActivities) * 100) 
+                        : 0;
+                });
+
+                // Find most and least active members
+                const sortedMembers = Object.entries(memberAttendance)
+                    .sort(([, a], [, b]) => b - a);
+
+                document.getElementById('mostActive').textContent = sortedMembers[0] 
+                    ? `${sortedMembers[0][0]} (${sortedMembers[0][1]}%)` 
+                    : '-';
+                document.getElementById('leastActive').textContent = sortedMembers[sortedMembers.length - 1] 
+                    ? `${sortedMembers[sortedMembers.length - 1][0]} (${sortedMembers[sortedMembers.length - 1][1]}%)` 
+                    : '-';
+
+            } catch (error) {
+                console.error('Error updating statistics:', error);
+            }
+        }
+
+        function filterTeamMembers(searchTerm) {
+            const activeTab = document.querySelector('.tab.active').textContent.toLowerCase();
+            const tableId = `${activeTab.replace(' ', '-')}Table`;
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            
+            tbody.querySelectorAll('tr').forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const faculty = row.cells[1].textContent.toLowerCase();
+                const role = row.cells[2].textContent.toLowerCase();
+                
+                if (name.includes(searchTerm.toLowerCase()) ||
+                    faculty.includes(searchTerm.toLowerCase()) ||
+                    role.includes(searchTerm.toLowerCase())) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = checkLogin();
+            if (loggedInUser) {
+                document.getElementById("userName").textContent = loggedInUser.name || "User";
+            }
+
+            // Ensure attendanceData structure is complete
+            attendanceData = {
+                meetings: attendanceData.meetings || {},
+                greenWednesdays: attendanceData.greenWednesdays || {},
+                events: attendanceData.events || {},
+                rallies: attendanceData.rallies || {}
+            };
+
+            // Add IDs to team members if they don't have them
+            teamMembers = teamMembers.map((member, index) => ({
+                ...member,
+                id: member.id || index + 1
+            }));
+
+            console.log('Team Members:', teamMembers); // Debug log
+
+            // Load initial data
+            loadMeetingForms();
+            loadGreenWednesdayForms();
+            loadEventForms();
+            loadRallyForms();
+
+            // Load the first form if available for each type
+            const meetingSelect = document.getElementById('meetingFormSelect');
+            if (meetingSelect.options.length > 1) {
+                meetingSelect.selectedIndex = 1;
+                loadMeetingForm();
+            } else {
+                createNewMeetingForm();
+            }
+
+            const greenWednesdaySelect = document.getElementById('greenWednesdayFormSelect');
+            if (greenWednesdaySelect.options.length > 1) {
+                greenWednesdaySelect.selectedIndex = 1;
+                loadGreenWednesdayForm();
+            } else {
+                createNewGreenWednesdayForm();
+            }
+
+            const eventSelect = document.getElementById('eventFormSelect');
+            if (eventSelect.options.length > 1) {
+                eventSelect.selectedIndex = 1;
+                loadEventForm();
+            } else {
+                createNewEventForm();
+            }
+
+            // Set default rally form
+            const rallySelect = document.getElementById('rallyFormSelect');
+            rallySelect.selectedIndex = 1; // Select Nomination Rally by default
+            loadRallyForm();
+
+            document.getElementById("searchInput").addEventListener("input", function() {
+                filterTeamMembers(this.value);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Entry - KANUGA'S GUILD CAMPAIGN 2026</title>
+    <style>    
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        h1 {
+            color: green;
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 48%;
+            min-width: 300px;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        input, select {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        .nav {
+            margin-bottom: 20px;
+        }
+        .nav a {
+            margin-right: 15px;
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            color: white;
+            background-color: green;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="campaign.html">Home</a>
+        <a href="data-entry.html">Data Entry</a>
+        <a href="supporters.html">Supporters</a>
+        <a href="team-members.html">Team Members</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="finance.html">Campaign Finance</a>
+    </div>
+
+    <h1>Data Entry - KANUGA'S GUILD CAMPAIGN 2026</h1>
+
+    <div class="form-container">
+        <div class="form-section">
+            <h2>Enter Team Member Data</h2>
+            <form id="teamMemberForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="program">Program:</label>
+                <input type="text" id="program" name="program" required><br>
+
+                <label for="faculty">Faculty:</label>
+                <select id="faculty" name="faculty" required>
+                    <option value="">Select Faculty</option>
+                    <option value="FACULTY OF COMMERCE">FACULTY OF COMMERCE</option>
+                    <option value="FACULTY OF MANAGEMENT">FACULTY OF MANAGEMENT</option>
+                    <option value="FACULTY OF BUSINESS ADMINISTRATION">FACULTY OF BUSINESS ADMINISTRATION</option>
+                    <option value="FACULTY OF ENTREPRENEURSHIP & SMALL BUSINESS MANAGEMENT">FACULTY OF ENTREPRENEURSHIP & SMALL BUSINESS MANAGEMENT</option>
+                    <option value="FACULTY OF COMPUTING & INFORMATICS">FACULTY OF COMPUTING & INFORMATICS</option>
+                    <option value="FACULTY OF ECONOMICS, ENERGY & MANAGEMENT SCIENCE">FACULTY OF ECONOMICS, ENERGY & MANAGEMENT SCIENCE</option>
+                    <option value="FACULTY OF PROCUREMENT & LOGISTICS MANAGEMENT">FACULTY OF PROCUREMENT & LOGISTICS MANAGEMENT</option>
+                    <option value="FACULTY OF MARKETING & INTERNATIONAL BUSINESS">FACULTY OF MARKETING & INTERNATIONAL BUSINESS</option>
+                    <option value="FACULTY OF TOURISM, HOSPITALITY AND LANGUAGES">FACULTY OF TOURISM, HOSPITALITY AND LANGUAGES</option>
+                    <option value="FACULTY OF VOCATIONAL & DISTANCE EDUCATION">FACULTY OF VOCATIONAL & DISTANCE EDUCATION</option>
+                </select><br>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required><br>
+
+                <label for="hostel">Hostel:</label>
+                <input type="text" id="hostel" name="hostel" required><br>
+
+                <label for="classRole">Role in Class:</label>
+                <input type="text" id="classRole" name="classRole" required><br>
+
+                <label for="teamRole">Role on Team:</label>
+                <input type="text" id="teamRole" name="teamRole" required><br>
+
+                <label for="teamGender">Gender:</label>
+                <select id="teamGender" name="teamGender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select><br>
+
+                <button type="submit">Submit Team Member Data</button>
+            </form>
+            <div id="teamMemberMessage"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Enter Supporter Data</h2>
+            <form id="supporterForm">
+                <label for="supporterName">Supporter Name:</label>
+                <input type="text" id="supporterName" name="supporterName" required><br>
+
+                <label for="supporterProgram">Supporter Program:</label>
+                <input type="text" id="supporterProgram" name="supporterProgram" required><br>
+
+                <label for="supporterFaculty">Faculty:</label>
+                <select id="supporterFaculty" name="supporterFaculty" required>
+                    <option value="">Select Faculty</option>
+                    <option value="FACULTY OF COMMERCE">FACULTY OF COMMERCE</option>
+                    <option value="FACULTY OF MANAGEMENT">FACULTY OF MANAGEMENT</option>
+                    <option value="FACULTY OF BUSINESS ADMINISTRATION">FACULTY OF BUSINESS ADMINISTRATION</option>
+                    <option value="FACULTY OF ENTREPRENEURSHIP & SMALL BUSINESS MANAGEMENT">FACULTY OF ENTREPRENEURSHIP & SMALL BUSINESS MANAGEMENT</option>
+                    <option value="FACULTY OF COMPUTING & INFORMATICS">FACULTY OF COMPUTING & INFORMATICS</option>
+                    <option value="FACULTY OF ECONOMICS, ENERGY & MANAGEMENT SCIENCE">FACULTY OF ECONOMICS, ENERGY & MANAGEMENT SCIENCE</option>
+                    <option value="FACULTY OF PROCUREMENT & LOGISTICS MANAGEMENT">FACULTY OF PROCUREMENT & LOGISTICS MANAGEMENT</option>
+                    <option value="FACULTY OF MARKETING & INTERNATIONAL BUSINESS">FACULTY OF MARKETING & INTERNATIONAL BUSINESS</option>
+                    <option value="FACULTY OF TOURISM, HOSPITALITY AND LANGUAGES">FACULTY OF TOURISM, HOSPITALITY AND LANGUAGES</option>
+                    <option value="FACULTY OF VOCATIONAL & DISTANCE EDUCATION">FACULTY OF VOCATIONAL & DISTANCE EDUCATION</option>
+                </select><br>
+
+                <label for="supporterHostel">Supporter Hostel:</label>
+                <input type="text" id="supporterHostel" name="supporterHostel" required><br>
+
+                <label for="supporterContact">Supporter Contact:</label>
+                <input type="text" id="supporterContact" name="supporterContact" required><br>
+
+                <label for="supporterGender">Supporter Gender:</label>
+                <select id="supporterGender" name="supporterGender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select><br>
+
+                <button type="submit">Submit Supporter Data</button>
+            </form>
+            <div id="supporterMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Team Member Form
+        document.getElementById("teamMemberForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = {
+                name: document.getElementById("name").value,
+                program: document.getElementById("program").value,
+                faculty: document.getElementById("faculty").value,
+                phone: document.getElementById("phone").value,
+                hostel: document.getElementById("hostel").value,
+                classRole: document.getElementById("classRole").value,
+                teamRole: document.getElementById("teamRole").value,
+                teamGender: document.getElementById("teamGender").value
+            };
+
+            let teamMembers = JSON.parse(localStorage.getItem("teamMemberData")) || [];
+            teamMembers.push(formData);
+            localStorage.setItem("teamMemberData", JSON.stringify(teamMembers));
+
+            document.getElementById("teamMemberMessage").innerHTML = "Team member data saved successfully!";
+            document.getElementById("teamMemberForm").reset();
+        });
+
+        // JavaScript for Supporter Form
+        document.getElementById("supporterForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const supporterData = {
+                name: document.getElementById("supporterName").value,
+                program: document.getElementById("supporterProgram").value,
+                faculty: document.getElementById("supporterFaculty").value,
+                hostel: document.getElementById("supporterHostel").value,
+                phone: document.getElementById("supporterContact").value,
+                gender: document.getElementById("supporterGender").value
+            };
+
+            let supporters = JSON.parse(localStorage.getItem("supporterData")) || [];
+            supporters.push(supporterData);
+            localStorage.setItem("supporterData", JSON.stringify(supporters));
+
+            document.getElementById("supporterMessage").innerHTML = "Supporter data saved successfully!";
+            document.getElementById("supporterForm").reset();
+        });
+    </script>
+</body>
+</html>
