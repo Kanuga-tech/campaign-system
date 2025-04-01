@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supporters - KANUGA'S GUILD CAMPAIGN 2026</title>
+    <title>Team Members - KANUGA'S GUILD CAMPAIGN 2026</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="permissions.js"></script>
     <style>
@@ -196,106 +196,6 @@
             background-color: #d32f2f;
         }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 20px;
-        }
-
-        .pagination button {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            background-color: white;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        .pagination button.active {
-            background-color: green;
-            color: white;
-            border-color: green;
-        }
-
-        .pagination button:hover:not(.active) {
-            background-color: #f5f5f5;
-        }
-
-        .search-filters {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .filter-group label {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .filter-select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            min-width: 150px;
-        }
-
-        .export-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .export-btn:hover {
-            background-color: #45a049;
-        }
-
-        .search-results {
-            margin-top: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-        }
-
-        .search-results h3 {
-            margin-top: 0;
-            color: #2e7d32;
-        }
-
-        .search-results table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .search-results th {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .search-results td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .search-results tr:hover {
-            background-color: #f5f5f5;
-        }
-
         @media (max-width: 768px) {
             .nav {
                 text-align: center;
@@ -332,56 +232,56 @@
         }
 
         function logout() {
-            localStorage.removeItem('currentUser');
+            localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
         }
 
-        function deleteSupporter(index) {
-            if (confirm('Are you sure you want to delete this supporter?')) {
-                let supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-                supporterData.splice(index, 1);
-                localStorage.setItem("supporterData", JSON.stringify(supporterData));
-                displaySupporters(supporterData);
+        function deleteTeamMember(index) {
+            if (confirm('Are you sure you want to delete this team member?')) {
+                let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+                teamData.splice(index, 1);
+                localStorage.setItem("teamData", JSON.stringify(teamData));
+                displayTeamMembers(teamData);
             }
         }
 
-        function editSupporter(index) {
-            // Redirect to data-entry.html with the supporter's data
-            let supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-            localStorage.setItem("editingSupporter", JSON.stringify(supporterData[index]));
+        function editTeamMember(index) {
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            localStorage.setItem("editingTeamMember", JSON.stringify(teamData[index]));
             window.location.href = "data-entry.html?edit=true";
         }
 
         function sortTable(column) {
-            let supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-            supporterData.sort((a, b) => {
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            teamData.sort((a, b) => {
                 if (a[column] < b[column]) return -1;
                 if (a[column] > b[column]) return 1;
                 return 0;
             });
-            localStorage.setItem("supporterData", JSON.stringify(supporterData));
-            displaySupporters(supporterData);
+            localStorage.setItem("teamData", JSON.stringify(teamData));
+            displayTeamMembers(teamData);
         }
 
-        function displaySupporters(supporters) {
-            let table = document.getElementById("supportersTable");
+        function displayTeamMembers(members) {
+            let table = document.getElementById("teamTable");
             table.innerHTML = "";
 
-            supporters.forEach((supporter, index) => {
+            members.forEach((member, index) => {
                 let row = table.insertRow();
                 row.innerHTML = `
-                    <td>${supporter.name || 'N/A'}</td>
-                    <td>${supporter.program || 'N/A'}</td>
-                    <td>${supporter.faculty || 'N/A'}</td>
-                    <td>${supporter.phone || 'N/A'}</td>
-                    <td>${supporter.hostel || 'N/A'}</td>
-                    <td>${supporter.gender || 'N/A'}</td>
+                    <td>${member.name || 'N/A'}</td>
+                    <td>${member.program || 'N/A'}</td>
+                    <td>${member.faculty || 'N/A'}</td>
+                    <td>${member.phone || 'N/A'}</td>
+                    <td>${member.hostel || 'N/A'}</td>
+                    <td>${member.classRole || 'N/A'}</td>
+                    <td>${member.teamRole || 'N/A'}</td>
                     <td>
                         <div class="action-buttons">
-                            <button class="edit-btn" onclick="editSupporter(${index})">
+                            <button class="edit-btn" onclick="editTeamMember(${index})">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="delete-btn" onclick="deleteSupporter(${index})">
+                            <button class="delete-btn" onclick="deleteTeamMember(${index})">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -389,145 +289,12 @@
                 `;
             });
         }
-
-        function populateFilters() {
-            const supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-            
-            // Get unique values for each filter
-            const faculties = [...new Set(supporterData.map(s => s.faculty).filter(Boolean))];
-            const programs = [...new Set(supporterData.map(s => s.program).filter(Boolean))];
-            const hostels = [...new Set(supporterData.map(s => s.hostel).filter(Boolean))];
-
-            // Populate faculty filter
-            const facultyFilter = document.getElementById('facultyFilter');
-            faculties.forEach(faculty => {
-                const option = document.createElement('option');
-                option.value = faculty;
-                option.textContent = faculty;
-                facultyFilter.appendChild(option);
-            });
-
-            // Populate program filter
-            const programFilter = document.getElementById('programFilter');
-            programs.forEach(program => {
-                const option = document.createElement('option');
-                option.value = program;
-                option.textContent = program;
-                programFilter.appendChild(option);
-            });
-
-            // Populate hostel filter
-            const hostelFilter = document.getElementById('hostelFilter');
-            hostels.forEach(hostel => {
-                const option = document.createElement('option');
-                option.value = hostel;
-                option.textContent = hostel;
-                hostelFilter.appendChild(option);
-            });
-        }
-
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const faculty = document.getElementById('facultyFilter').value;
-            const program = document.getElementById('programFilter').value;
-            const hostel = document.getElementById('hostelFilter').value;
-
-            const supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-            const filteredSupporters = supporterData.filter(supporter => {
-                const matchesSearch = Object.values(supporter).some(value => 
-                    String(value).toLowerCase().includes(searchTerm)
-                );
-                const matchesFaculty = !faculty || supporter.faculty === faculty;
-                const matchesProgram = !program || supporter.program === program;
-                const matchesHostel = !hostel || supporter.hostel === hostel;
-
-                return matchesSearch && matchesFaculty && matchesProgram && matchesHostel;
-            });
-
-            displaySearchResults(filteredSupporters);
-        }
-
-        function displaySearchResults(supporters) {
-            const searchResults = document.getElementById('searchResults');
-            const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-            resultsTable.innerHTML = '';
-
-            if (supporters.length === 0) {
-                searchResults.style.display = 'none';
-                return;
-            }
-
-            searchResults.style.display = 'block';
-            supporters.forEach(supporter => {
-                const row = resultsTable.insertRow();
-                row.innerHTML = `
-                    <td>${supporter.name || 'N/A'}</td>
-                    <td>${supporter.phone || 'N/A'}</td>
-                    <td>
-                        ${supporter.faculty ? `Faculty: ${supporter.faculty}<br>` : ''}
-                        ${supporter.program ? `Program: ${supporter.program}<br>` : ''}
-                        ${supporter.hostel ? `Hostel: ${supporter.hostel}` : ''}
-                    </td>
-                `;
-            });
-        }
-
-        function exportToExcel() {
-            const resultsTable = document.getElementById('resultsTable');
-            const rows = resultsTable.getElementsByTagName('tr');
-            
-            // Create CSV content
-            let csvContent = "data:text/csv;charset=utf-8,\n";
-            
-            // Add headers
-            const headers = ['Name', 'Contact', 'Faculty', 'Program', 'Hostel'];
-            csvContent += headers.join(',') + '\n';
-            
-            // Add data rows
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                const details = cells[2].innerHTML.split('<br>');
-                
-                const row = [
-                    cells[0].textContent,
-                    cells[1].textContent,
-                    details[0] ? details[0].split(': ')[1] : '',
-                    details[1] ? details[1].split(': ')[1] : '',
-                    details[2] ? details[2].split(': ')[1] : ''
-                ];
-                
-                csvContent += row.join(',') + '\n';
-            }
-            
-            // Create download link
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "supporters_data.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const loggedInUser = checkLogin();
-            if (loggedInUser) {
-                document.getElementById("userName").textContent = loggedInUser.name || "User";
-            }
-
-            let supporterData = JSON.parse(localStorage.getItem("supporterData")) || [];
-            console.log("Loaded supporter data:", supporterData);
-            displaySupporters(supporterData);
-            populateFilters();
-
-            document.getElementById("searchInput").addEventListener("input", applyFilters);
-        });
     </script>
 </head>
 
 <body>
     <div class="header">
-        <h1>Supporters - KANUGA'S GUILD CAMPAIGN 2026</h1>
+        <h1>Team Members - KANUGA'S GUILD CAMPAIGN 2026</h1>
     </div>
 
     <div class="welcome-section">
@@ -548,49 +315,11 @@
         <div class="controls">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search supporters...">
+                <input type="text" id="searchInput" placeholder="Search team members...">
             </div>
             <button class="add-btn" onclick="window.location.href='data-entry.html'">
-                <i class="fas fa-plus"></i> Add New Supporter
+                <i class="fas fa-plus"></i> Add New Team Member
             </button>
-        </div>
-
-        <div class="search-filters">
-            <div class="filter-group">
-                <label for="facultyFilter">Faculty</label>
-                <select class="filter-select" id="facultyFilter" onchange="applyFilters()">
-                    <option value="">All Faculties</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="programFilter">Program</label>
-                <select class="filter-select" id="programFilter" onchange="applyFilters()">
-                    <option value="">All Programs</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="hostelFilter">Hostel</label>
-                <select class="filter-select" id="hostelFilter" onchange="applyFilters()">
-                    <option value="">All Hostels</option>
-                </select>
-            </div>
-            <button class="export-btn" onclick="exportToExcel()">
-                <i class="fas fa-file-excel"></i> Export Results
-            </button>
-        </div>
-
-        <div class="search-results" id="searchResults" style="display: none;">
-            <h3>Search Results</h3>
-            <table id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Contact</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
         </div>
 
         <div class="table-container">
@@ -602,15 +331,41 @@
                         <th onclick="sortTable('faculty')">Faculty <i class="fas fa-sort"></i></th>
                         <th onclick="sortTable('phone')">Phone <i class="fas fa-sort"></i></th>
                         <th onclick="sortTable('hostel')">Hostel <i class="fas fa-sort"></i></th>
-                        <th onclick="sortTable('gender')">Gender <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('classRole')">Role in Class <i class="fas fa-sort"></i></th>
+                        <th onclick="sortTable('teamRole')">Role on Team <i class="fas fa-sort"></i></th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="supportersTable">
+                <tbody id="teamTable">
                 </tbody>
             </table>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = checkLogin();
+            if (loggedInUser) {
+                document.getElementById("userName").textContent = loggedInUser.name || "User";
+            }
+
+            let teamData = JSON.parse(localStorage.getItem("teamData")) || [];
+            displayTeamMembers(teamData);
+
+            document.getElementById("searchInput").addEventListener("input", function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredMembers = teamData.filter(member => {
+                    return Object.values(member).some(value => {
+                        if (typeof value === 'string') {
+                            return value.toLowerCase().includes(searchTerm);
+                        }
+                        return false;
+                    });
+                });
+                displayTeamMembers(filteredMembers);
+            });
+        });
+    </script>
 </body>
 
 </html>
